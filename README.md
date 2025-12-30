@@ -10,7 +10,7 @@ pip install bcodparser
 > *Here is an example of use with [pybluez](https://github.com/pybluez/pybluez)*
 
 **Code**
-```
+```python
 from bcodparser import decode
 import bluetooth # pybluez
 
@@ -65,3 +65,4 @@ Service Device Classes:  Networking, Capturing, Audio
 ```
 
 View PyPi : https://pypi.org/project/bcodparser/
+View GitHub : https://github.com/Lou-du-Poitou/bcodparser/
