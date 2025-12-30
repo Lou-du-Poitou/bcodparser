@@ -208,8 +208,8 @@ def decode(device_class: int) -> dict:
     if major == 3: # LAN/Network
         load_factor = minor >> 3 # (bits 5 to 7 of device_class)
         minor_key = load_factor << 3 # By convention
-        minor_class = MINOR_DEVICE_CLASS.get((major, minor_key), UNKNOWN_DEVICE_CLASS)
-        if minor_class and minor_class != UNKNOWN_DEVICE_CLASS:
+        minor_class = MINOR_DEVICE_CLASS.get((major, minor_key))
+        if minor_class:
             result["minorClass"].append(minor_class)
         
     elif major == 5: # Peripheral type
@@ -217,21 +217,21 @@ def decode(device_class: int) -> dict:
         peripheral_type = minor & ((1 << 4) - 1) # (bits 2 to 5 of device_class)
         
         for minor_key in [input_type << 4, peripheral_type]:
-            minor_class = MINOR_DEVICE_CLASS.get((major, minor_key), UNKNOWN_DEVICE_CLASS)
-            if minor_class and minor_class != UNKNOWN_DEVICE_CLASS:
+            minor_class = MINOR_DEVICE_CLASS.get((major, minor_key))
+            if minor_class:
                 result["minorClass"].append(minor_class)
                         
     elif major == 6: # Imaging
         for i in range(2, 6): # Iterates from 2 because the bitset is in the range 4 to 7 of device_class
             if minor & (1 << i): # Check the bitset value at position i
                 minor_key = 1 << i
-                minor_class = MINOR_DEVICE_CLASS.get((major, minor_key), UNKNOWN_DEVICE_CLASS)
-                if minor_class and minor_class != UNKNOWN_DEVICE_CLASS:
+                minor_class = MINOR_DEVICE_CLASS.get((major, minor_key))
+                if minor_class:
                     result["minorClass"].append(minor_class)
 
     else: # Others
-        minor_class = MINOR_DEVICE_CLASS.get((major, minor), UNKNOWN_DEVICE_CLASS)
-        if minor_class and minor_class != UNKNOWN_DEVICE_CLASS:
+        minor_class = MINOR_DEVICE_CLASS.get((major, minor))
+        if minor_class:
             result["minorClass"].append(minor_class)
     
     # Get the service classes
