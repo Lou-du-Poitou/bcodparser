@@ -180,6 +180,8 @@ def decode(device_class: int) -> dict:
         Major Device Class (bits 8 to 12)
     - serviceClass (list[str])
         Major Services Classes (bits 13 to 23)
+
+    Note: Unknown minor/service classes are filtered out
     """
     
     # Check the type of device_class
